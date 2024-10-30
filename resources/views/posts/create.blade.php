@@ -7,10 +7,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div>{{$error}}</div>
+                @endforeach
+            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <section>
-                        <form method="post" action="#" class="space-y-6">
+                        <form method="post" action="{{route('posts.store')}}" class="space-y-6">
+                            @csrf
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
                                 <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" />
@@ -31,7 +37,7 @@
 
                             <div>
                                 <label for="is_draft" class="inline-flex items-center">
-                                    <input id="is_draft" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                                    <input id="is_draft" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="is_published">
                                     <span class="ms-2 text-sm text-gray-600">{{ __('Save as Draft') }}</span>
                                 </label>
                             </div>
