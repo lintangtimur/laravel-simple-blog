@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
             'title'=> 'required|string|min:0|max:60',
             'content' => 'required',
             'published_at' => 'required',
-            'is_published' => 'nullable',
+            'is_draft' => 'nullable',
         ];
     }
 }
