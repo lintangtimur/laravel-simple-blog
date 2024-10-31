@@ -8,10 +8,23 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{$error}}</div>
-                @endforeach
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
+            
+            @if ($message = Session::get('msg'))
+            <div class="alert alert-{{$message['status'] ? "info":"danger"}} alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>	
+                <strong>{{ $message['msg'] }}</strong>
+            </div>             
+            @endif
+
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <section>
@@ -37,7 +50,7 @@
 
                             <div>
                                 <label for="is_draft" class="inline-flex items-center">
-                                    <input id="is_draft" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="is_published">
+                                    <input id="is_draft" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="is_draft">
                                     <span class="ms-2 text-sm text-gray-600">{{ __('Save as Draft') }}</span>
                                 </label>
                             </div>
