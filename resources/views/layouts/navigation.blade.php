@@ -18,13 +18,13 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="url('/posts')" :active="false">
+                    <x-nav-link :href="route('posts.index')" :active="false">
                         {{ __('All Posts') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="url('/posts/form')" :active="false">
+                    <x-nav-link :href="route('posts.create')" :active="false">
                         {{ __('Create New Post') }}
                     </x-nav-link>
                 </div>
