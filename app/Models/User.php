@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the posts written by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
