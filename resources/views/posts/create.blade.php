@@ -17,19 +17,19 @@
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
                                 <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" />
-                                <x-input-error :messages="''" class="mt-2" />
+                                <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div>
 
                             <div>
                                 <x-input-label for="content" :value="__('Content')" />
                                 <textarea id="content" name="content" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="6"></textarea>
-                                <x-input-error :messages="''" class="mt-2" />
+                                <x-input-error :messages="$errors->get('content')" class="mt-2" />
                             </div>
 
                             <div>
                                 <x-input-label for="publish_date" :value="__('Publish Date')" />
                                 <x-text-input id="publish_date" name="publish_date" type="date" class="mt-1 block w-full" />
-                                <x-input-error :messages="''" class="mt-2" />
+                                <x-input-error :messages="$errors->get('publish_date')" class="mt-2" />
                             </div>
 
                             <div>
