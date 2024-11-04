@@ -1,16 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $posts = Post::published()->get();
-
-    return view('welcome', compact('posts'));
-})->name('welcome');
-
+Route::get('/', [HomepageController::class, 'index'])->name('welcome');
 Route::get('/posts', function () {
     $posts = Post::all()->sortByDesc('publish_date');
 
