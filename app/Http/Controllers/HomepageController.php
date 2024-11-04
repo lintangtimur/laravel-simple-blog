@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class HomepageController extends Controller
@@ -15,7 +13,7 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        $posts = Auth::user()->posts()->published()->get();
+        $posts = Auth::user()?->posts()->paginate(3);
         
         return view('welcome', compact('posts'));
     }
