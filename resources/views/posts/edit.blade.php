@@ -7,11 +7,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <x-alert />
+
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <section>
-                        <form method="post" action="{{route('posts.update', $post->id)}}" class="space-y-6">
+                        <form method="post" action="{{route('posts.update', $post)}}" class="space-y-6">
                             @csrf
+                            @method('PATCH')
                             <div>
                                 <x-input-label for="title" :value="__('Title')" />
                                 <x-text-input id="title" value="{{ $post->title }}" name="title" type="text" class="mt-1 block w-full" />
@@ -25,8 +28,8 @@
                             </div>
 
                             <div>
-                                <x-input-label for="published_at" :value="__('Publish Date')" />
-                                <x-text-input id="published_at" value="{{$post->publish_date}}" name="published_at" type="date" class="mt-1 block w-full" />
+                                <x-input-label for="publish_date" :value="__('Publish Date')" />
+                                <x-text-input id="publish_date" value="{{$post->publish_date}}" name="publish_date" type="date" class="mt-1 block w-full" />
                                 <x-input-error :messages="''" class="mt-2" />
                             </div>
 

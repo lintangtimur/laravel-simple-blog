@@ -7,23 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>	
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            
-            @if ($message = Session::get('msg'))
-            <div class="alert alert-{{$message['status'] ? "info":"danger"}} alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>	
-                <strong>{{ $message['msg'] }}</strong>
-            </div>             
-            @endif
+            <x-alert />
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -43,8 +27,8 @@
                             </div>
 
                             <div>
-                                <x-input-label for="published_at" :value="__('Publish Date')" />
-                                <x-text-input id="published_at" name="published_at" type="date" class="mt-1 block w-full" />
+                                <x-input-label for="publish_date" :value="__('Publish Date')" />
+                                <x-text-input id="publish_date" name="publish_date" type="date" class="mt-1 block w-full" />
                                 <x-input-error :messages="''" class="mt-2" />
                             </div>
 
