@@ -26,7 +26,13 @@
                     @foreach ($posts as $item)
                     <div class="rounded-md border p-5 shadow">
                         <div class="flex items-center gap-2">
+                            @if ($item->is_draft)
+                            <span class="flex-none rounded bg-gray-100 px-2 py-1 text-gray-800">Draft</span>
+                            @elseif($item->is_draft == false && $item->publish_date <= now())
                             <span class="flex-none rounded bg-green-100 px-2 py-1 text-green-800">Active</span>
+                            @elseif($item->publish_date > now())
+                            <span class="flex-none rounded bg-yellow-100 px-2 py-1 text-yellow-800">Scheduled</span>
+                            @endif
                             <h3><a href="#" class="text-blue-500">{{$item->title}}</a></h3>
                         </div>
                         <div class="mt-4 flex items-end justify-between">
@@ -35,14 +41,15 @@
                                 <div>Updated: {{$item->updated_at}}</div>
                             </div>
                             <div>
-                                <a href="{{route('posts.show', $item->id)}}" class="text-blue-500">Detail</a> /
+                                <a href="{{route('posts.show', $item)}}" class="text-blue-500">Detail</a> /
                                 @can('update', $item)
-                                <a href="{{route('posts.edit', $item->id)}}" class="text-blue-500">Edit</a> /    
+                                <a href="{{route('posts.edit', $item)}}" class="text-blue-500">Edit</a> /    
                                 @endcan
 
                                 @can('delete', $item)
-                                <form action="{{route('posts.destroy', $item->id)}}" method="POST" class="inline">
+                                <form action="{{route('posts.destroy', $item)}}" method="POST" class="inline">
                                     @csrf
+                                    @method('DELETE')
                                     <button class="text-red-500">Delete</button>
                                 </form>
                                 @endcan
@@ -50,7 +57,7 @@
                         </div>
                     </div>
                     @endforeach                    
-                    <div>Pagination Here</div>
+                    <div>{{ $posts->links() }}</div>
                 </div>
             </div>
             @endauth

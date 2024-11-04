@@ -11,10 +11,10 @@ class PostPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
-    {
-        return $user != null;
-    }
+    // public function create(User $user): bool
+    // {
+    //     return $user != null;
+    // }
 
     /**
      * Determine whether the user can update the model.
