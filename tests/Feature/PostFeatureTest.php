@@ -62,7 +62,7 @@ class PostFeatureTest extends TestCase
         $post = Post::create(['user_id' => $user->id,'title'=> 'test post', 'content' => 'test content', 'publish_date' => now()]);
 
         // Act: Kunjungi route show untuk post tersebut
-        $response = $this->get(route('posts.show', ['id' => $post->id]));
+        $response = $this->get(route('posts.show', ['post' => $post]));
 
         // Assert: Pastikan respons berhasil (status 200) dan judul post tampil
         $response->assertStatus(200);
@@ -79,7 +79,7 @@ class PostFeatureTest extends TestCase
 
         // Act: Autentikasi user dan akses halaman edit untuk post yang ada
         $this->actingAs($user);
-        $response = $this->get(route('posts.edit', ['id' => $post->id]));
+        $response = $this->get(route('posts.edit', ['post' => $post]));
 
         // Assert: Pastikan respons berhasil (status 200) dan view yang benar ditampilkan
         $response->assertStatus(200);
@@ -96,7 +96,7 @@ class PostFeatureTest extends TestCase
 
 
         $this->actingAs($userTwo);
-        $response = $this->get(route('posts.edit', ['id' => $post->id]));
+        $response = $this->get(route('posts.edit', ['post' => $post]));
 
         $response->assertStatus(403);
     }
@@ -108,10 +108,10 @@ class PostFeatureTest extends TestCase
         $post = Post::create(['user_id' => $user->id,'title'=> 'test post', 'content' => 'test content', 'publish_date' => now()]);
 
         // Act: Otentikasi user dan update post
-        $response = $this->actingAs($user)->post(route('posts.update', ['id' => $post->id]), [
+        $response = $this->actingAs($user)->patch(route('posts.update', ['post' => $post]), [
             'title' => 'Updated Title',
             'content' => 'Updated content',
-            'published_at' => now()->toDateString() 
+            'publish_date' => now()->toDateString() 
         ]);
 
         $response->assertSessionHasNoErrors();
@@ -129,7 +129,7 @@ class PostFeatureTest extends TestCase
         $post = Post::create(['user_id' => $user->id,'title'=> 'test post', 'content' => 'test content', 'publish_date' => now()]);
 
         $this->actingAs($user);
-        $response = $this->post(route('posts.destroy', ['id' => $post->id]));
+        $response = $this->delete(route('posts.destroy', ['post' => $post]));
 
         $response->assertStatus(302);
     }
@@ -142,7 +142,7 @@ class PostFeatureTest extends TestCase
         $post = Post::create(['user_id' => $user->id,'title'=> 'test post', 'content' => 'test content', 'publish_date' => now()]);
 
         $this->actingAs($userTwo);
-        $response = $this->post(route('posts.destroy', ['id' => $post->id]));
+        $response = $this->delete(route('posts.destroy', ['post' => $post]));
 
         $response->assertStatus(403);
     }
