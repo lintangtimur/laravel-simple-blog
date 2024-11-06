@@ -18,15 +18,23 @@ class IndexTest extends TestCase
         Post::factory()
             ->for($user)
             ->create([
-                'title' => 'This is draft post',
+                'title' => 'draft post',
                 'is_draft' => true,
             ]);
 
         Post::factory()
             ->for($user)
             ->create([
-                'title' => 'This is scheduled post',
-                'published_at' => today()->addDay(),
+                'title' => 'scheduled post',
+                'publish_date' => today()->addDay(),
+            ]);
+
+        Post::factory()
+            ->for($user)
+            ->create([
+                'title' => 'published post',
+                'is_draft' => false,
+                'publish_date' => today()->subDay(),
             ]);
     }
 
@@ -35,8 +43,8 @@ class IndexTest extends TestCase
         $response = $this->get('/posts');
         $response->assertStatus(200);
         $response->assertViewIs('posts.index');
-        $response->assertSee(Post::first()->title);
-        $response->assertDontSee('This is draft post');
-        $response->assertDontSee('This is scheduled post');
+        $response->assertSee(Post::published()->orderBy('publish_date', 'desc')->first()->title);
+        $response->assertDontSee('draft post');
+        $response->assertDontSee('scheduled post');
     }
 }

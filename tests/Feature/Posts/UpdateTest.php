@@ -25,11 +25,14 @@ class UpdateTest extends TestCase
         $post = Post::factory()
                     ->for($user)
                     ->create();
-        $params = Post::factory()->make()->toArray();
+        
+        $params = Post::factory()->for($user)->make()->toArray();
+        $params['publish_date'] = "2024-11-05";
 
         $response = $this->actingAs($user)->patch('/posts/'.$post->id, $params);
-        $response->assertRedirectToRoute('home');
+        $response->assertRedirectToRoute('posts.edit', ['post' => $post->id]);
         $params['user_id'] = $user->id;
+        
         $this->assertDatabaseHas('posts', $params);
     }
 
